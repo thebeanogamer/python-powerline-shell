@@ -29,8 +29,10 @@ BuildRequires:  python3-devel
 BuildRequires:  git
 BuildRequires:  mercurial
 BuildRequires:  subversion
+%if ! 0%{?rhel}
 BuildRequires:  fossil
 BuildRequires:  breezy
+%endif
 %endif
 
 
@@ -69,7 +71,7 @@ Summary:        %{summary}
 
 %check
 %if %{with tests}
-%pytest
+%pytest %{?rhel:--ignore=test/segments_test/bzr_test.py --ignore=test/segments_test/fossil_test.py}
 %endif
 %pyproject_check_import
 
